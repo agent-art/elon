@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body {
+      background: linear-gradient(-45deg, #1a1f3c, #2d1a3c, #3c1a2d, #1a3c2d);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      color: #a4b1cd;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Matrix rain effect */
+    .matrix-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.7));
+      opacity: 0.3;
+    }
+
+    /* Background shapes */
+    .bg-shape {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+    }
+
+    .shape1 {
+      width: 300px;
+      height: 300px;
+      background: rgba(74, 144, 226, 0.2);
+      top: 20%;
+      left: 15%;
+    }
+
+    .shape2 {
+      width: 400px;
+      height: 400px;
+      background: rgba(41, 128, 185, 0.15);
+      bottom: 10%;
+      right: 20%;
+    }
+
+    .terminal {
+      width: 100%;
+      max-width: 800px;
+      background: rgba(15, 22, 35, 0.95);
+      border: 1px solid rgba(42, 54, 76, 0.8);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4),
+                  0 0 100px rgba(74, 144, 226, 0.1);
+      backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 1;
+    }
+
+    .terminal-header {
+      background: rgba(26, 35, 50, 0.95);
+      padding: 1rem;
+      border-bottom: 1px solid rgba(42, 54, 76, 0.8);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .terminal-button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .close { background: #ff5f56; }
+    .minimize { background: #ffbd2e; }
+    .maximize { background: #27c93f; }
+
+    .terminal-title {
+      color: #4a90e2;
+      margin-left: 1rem;
+      font-size: 0.9rem;
+      text-shadow: 0 0 10px rgba(74, 144, 226, 0.3);
+    }
+
+    .content {
+      padding: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .prompt {
+      color: #61afef;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 5px rgba(97, 175, 239, 0.3);
+    }
+
+    .prompt::before {
+      content: "$ ";
+    }
+
+    .tweet {
+      color: #e6e6e6;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background: rgba(255,255,255,0.05);
+      border-radius: 5px;
+      border: 1px solid rgba(42, 54, 76, 0.8);
+      backdrop-filter: blur(5px);
+    }
+
+    .user {
+      color: #98c379;
+      text-decoration: none;
+      border-bottom: 1px dashed #98c379;
+      transition: all 0.3s ease;
+    }
+
+    .user:hover {
+      color: #b5e890;
+      border-color: #b5e890;
+      text-shadow: 0 0 10px rgba(181, 232, 144, 0.5);
+    }
+
+    .timestamp {
+      color: #5c6370;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 15px;
+      background: #4a90e2;
+      margin-left: 5px;
+      animation: blink 1s infinite;
+      vertical-align: middle;
+      box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+    }
+
+    .status {
+      color: #98c379;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      text-shadow: 0 0 5px rgba(152, 195, 121, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="matrix-bg"></div>
+  <div class="bg-shape shape1"></div>
+  <div class="bg-shape shape2"></div>
+
+  <div class="terminal">
+    <div class="terminal-header">
+      <div class="terminal-button close"></div>
+      <div class="terminal-button minimize"></div>
+      <div class="terminal-button maximize"></div>
+      <span class="terminal-title">social_media_terminal ~ /tweets</span>
+    </div>
+    
+    <div class="content">
+      <div class="prompt">load_tweet --source x.com --id 1865710776717033901</div>
+      
+      <div class="tweet">
+        "Justice for a young American woman in Germany is not just about one case—it's about standing against injustice everywhere"
+        
+        - <a href="https://x.com/elonmusk/status/1865710776717033901" target="_blank" class="user">@elonmusk</a>
+        <div class="timestamp">Posted on X (Twitter)</div>
+      </div>
+
+      <div class="status">Tweet loaded successfully | Status: 200 OK</div>
+      
+      <div class="prompt">_<span class="cursor"></span></div>
+    </div>
+  </div>
+</body>
+</html>
